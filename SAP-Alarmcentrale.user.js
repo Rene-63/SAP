@@ -1,11 +1,13 @@
 // ==UserScript==
 // @name         SAP_Alarmcentrale
 // @namespace    http://tampermonkey.net/
-// @version      2024.04.08
+// @version      2024.04.09
 // @description  try to take over the world!
 // @author       Piet2001 & LSS-Manager (aangepast door Rene-MKS voor Alarmcentrale)
 // @match        https://www.meldkamerspel.com/*
 // @match        https://politie.meldkamerspel.com/*
+// @updateURL    https://github.com/Rene-63/SAP/blob/main/SAP-Alarmcentrale.user.js
+// @downloadURL  https://github.com/Rene-63/SAP/blob/main/SAP-Alarmcentrale.user.js
 // @grant        none
 // ==/UserScript==
 
@@ -47,7 +49,7 @@ var runPage = false;
         return runPage;
     }
 
-    var versie = "2024.03.07"
+    var versie = "2024.04-09"
     if (!localStorage.SAP_Alarmcentrale_VERSION || JSON.parse(localStorage.SAP_Alarmcentrale_VERSION).Version !== versie) {
         var updates = "Spoed aanpassing i.v.m. niet meer functioneren"
 
@@ -59,7 +61,7 @@ var runPage = false;
             .then(response => response.json())
             .then(data => {
                 var request = new XMLHttpRequest();
-                request.open("POST", "https://discord.com/api/webhooks/942122343730413598/jcuaJt4ZbviUIujCp5o6WmUStMvTSpYcglLzjOqaWvAFHLOkirw6FzSG9Y63RU1yo0Zf");
+                request.open("POST", "https://discord.com/api/webhooks/1227017087747227688/8kPrnmMozKrE0KWtrkvNPyCMUIUZTFJNYTJaI4sVgiJegeBxTA6oIDnZGR3cjQ0CYKil");
 
                 request.setRequestHeader('Content-type', 'application/json');
 
