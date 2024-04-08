@@ -92,10 +92,10 @@ var runPage = false;
 
 function RunScript() {
 
-    let alliance_credits = 5000;
+    let alliance_credits = 3000;
     let ignore_min_credits_to_share = false;
     let possible_to_share = false;
-    let minOpenTime = 2
+    let minOpenTime = 3
 
     var requirements = localStorage.MKS_requirements === undefined ? {} : JSON.parse(localStorage.MKS_requirements)
     let alliance_chat_setting = false; // Standaard instelling wel/niet in chat posten
