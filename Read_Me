@@ -1,0 +1,4 @@
+Wanneer de deelgrens en de minimaal open tijd aangepast moet worden;
+
+Verander de waarde 5000 in regel 95 naar het gewenste aantal credits
+Verander de waarde 2 in regel 98 naar het aantal uren dat de melding minimaal open moet blijven staan
