@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         SAP_Alarmcentrale
 // @namespace    http://tampermonkey.net/
-// @version      2024.04.09
-// @description  try to take over the world!
+// @version      2024.04.09-02
+// @description  Meldingen volgens deelregels alarmeren, delen en bericht posten
 // @author       Piet2001 & LSS-Manager (aangepast door Rene-MKS voor Alarmcentrale)
 // @match        https://www.meldkamerspel.com/*
 // @match        https://politie.meldkamerspel.com/*
@@ -49,11 +49,11 @@ var runPage = false;
         return runPage;
     }
 
-    var versie = "2024.04-09"
+    var versie = "2024.04-09-02"
     if (!localStorage.SAP_Alarmcentrale_VERSION || JSON.parse(localStorage.SAP_Alarmcentrale_VERSION).Version !== versie) {
         var updates = "Select Alarm & Post voor Alarmcentrale"
 
-        alert(`SAP_MRJ - Versie ${versie} nieuwe update! \n\n Updates:\n${updates}`)
+        alert(`SAP_Alarmcentrale - Versie ${versie} nieuwe update! \n\n Updates:\n${updates}`)
 
         localStorage.setItem('SAP_Alarmcentrale_VERSION', JSON.stringify({ Version: versie }));
 
@@ -81,7 +81,7 @@ var runPage = false;
                     RunScript()
                 }
                 else {
-                    alert("U zit niet in het juiste team om gebruik te maken van dit script")
+                    alert("Deze versie van het script is voor het team Alarmcentrale. U zit niet in het juiste team om hier gebruik van te maken")
                 }
             });
     }
@@ -102,7 +102,7 @@ function RunScript() {
     var requirements = localStorage.MKS_requirements === undefined ? {} : JSON.parse(localStorage.MKS_requirements)
     let alliance_chat_setting = false; // Standaard instelling wel/niet in chat posten
     let alliance_chat_credits_setting = false; // Alleen in chat plaatsen als boven ingesteld aantal credits. Deze instelling overschrijft de vorige instelling.
-    let alliance_chat_credits = 5000; // aantal credits wanneer die in de chat moet worden geplaatst
+    let alliance_chat_credits = 3000; // aantal credits wanneer die in de chat moet worden geplaatst
 
     let planned_chat_setting = false; // Instelling of geplande inzetten standaard in de chat komen
     let planned_alliance_chat_credits_setting = false; // Alleen in chat plaatsen als boven ingesteld aantal credits. Deze instelling overschrijft de vorige instelling.
@@ -169,7 +169,7 @@ function RunScript() {
                     return "Strandvoetuig/PM-OR"
                 }
                 else {
-                    return "Onbekend, meld aan vrijgever"
+                    return "Onbekend, meld aan deler van de melding"
                 }
             }
         }
@@ -292,7 +292,7 @@ function RunScript() {
                 }
             }
             else {
-                alert("Deze inzet is onder de deelgrens. Gebruik de normale deelknop om alsnog te delen!")
+                alert("Deze inzet is onder de ingestelde deelgrens. Gebruik de normale deelknop om alsnog te delen!")
             }
         }
 
@@ -386,7 +386,7 @@ function RunScript() {
         };
 
         let messagesplanned = ["Geplande inzet: %CREDITS% Credits"]
-        let messages = ["~%CREDITS% Credits | Afvullen vanaf " + getFillTime() + " | Sluitvoertuig: " + getSluitvoertuig()]
+        let messages = ["~%*CREDITS*% Credits | Afvullen vanaf " + getFillTime() + " | Sluitvoertuig: " + getSluitvoertuig()]
 
         transformMessages(() => {
             initButtons();
