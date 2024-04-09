@@ -51,7 +51,7 @@ var runPage = false;
 
     var versie = "2024.04-09"
     if (!localStorage.SAP_Alarmcentrale_VERSION || JSON.parse(localStorage.SAP_Alarmcentrale_VERSION).Version !== versie) {
-        var updates = "Spoed aanpassing i.v.m. niet meer functioneren"
+        var updates = "Select Alarm & Post voor Alarmcentrale"
 
         alert(`SAP_MRJ - Versie ${versie} nieuwe update! \n\n Updates:\n${updates}`)
 
