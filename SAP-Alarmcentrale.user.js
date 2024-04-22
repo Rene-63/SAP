@@ -386,7 +386,7 @@ function RunScript() {
         };
 
         let messagesplanned = ["Geplande inzet: %CREDITS% Credits"]
-        let messages = ["~%CREDITS% Credits | Afvullen vanaf " + getFillTime() + " | Sluitvoertuig: " + getSluitvoertuig()]
+        let messages = ["~%CREDITS% Credits | Afvullen vanaf: " + getFillTime() + " | Sluitvoertuig: " + getSluitvoertuig()]
 
         transformMessages(() => {
             initButtons();
