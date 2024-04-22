@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         SAP_Alarmcentrale
 // @namespace    http://tampermonkey.net/
-// @version      2024.04.10
+// @version      2024.04.22
 // @description  Meldingen volgens deelregels alarmeren, delen en bericht posten
 // @author       Piet2001 & LSS-Manager (aangepast door Rene-MKS voor Alarmcentrale)
 // @match        https://www.meldkamerspel.com/*
@@ -49,7 +49,7 @@ var runPage = false;
         return runPage;
     }
 
-    var versie = "2024.04-10"
+    var versie = "2024.04-22"
     if (!localStorage.SAP_Alarmcentrale_VERSION || JSON.parse(localStorage.SAP_Alarmcentrale_VERSION).Version !== versie) {
         var updates = "Select Alarm & Post voor Alarmcentrale"
 
