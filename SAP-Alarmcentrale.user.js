@@ -169,7 +169,7 @@ function RunScript() {
                     return "Strandvoetuig/PM-OR"
                 }
                 else {
-                    return "Onbekend, meld aan deler van de melding"
+                    return "Sluitvoertuig onbekend, meld dit aan deler van de melding"
                 }
             }
         }
@@ -292,7 +292,7 @@ function RunScript() {
                 }
             }
             else {
-                alert("Deze inzet is onder de ingestelde deelgrens. Gebruik de normale deelknop om alsnog te delen!")
+                alert("Deze inzet is onder de ingestelde deelgrens. Gebruik eventueel de normale deelknop om alsnog te delen!")
             }
         }
 
@@ -386,7 +386,7 @@ function RunScript() {
         };
 
         let messagesplanned = ["Geplande inzet: %CREDITS% Credits"]
-        let messages = ["~%CREDITS% Credits | Afvullen vanaf: " + getFillTime() + " | Sluitvoertuig: " + getSluitvoertuig()]
+        let messages = ["~%CREDITS% Credits | Melding afvullen vanaf: " + getFillTime() + " | met sluitvoertuig: " + getSluitvoertuig()]
 
         transformMessages(() => {
             initButtons();
