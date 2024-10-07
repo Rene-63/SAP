@@ -1,12 +1,12 @@
 // ==UserScript==
 // @name         SAP_Alarmcentrale
 // @namespace    http://tampermonkey.net/
-// @version      2024.10-07
+// @version      2024.10.08
 // @author       Piet2001 & LSS-Manager (aangepast door Rene-MKS voor Alarmcentrale)
 // @match        https://www.meldkamerspel.com/*
 // @match        https://politie.meldkamerspel.com/*
 // @downloadURL  https://github.com/Rene-63/SAP/blob/main/SAP_ALARMCENTRALE
-// @updateURL    https://github.com/Rene-63/SAP/blob/main/SAP_ALARMCENTRALE
+// @updateURL       https://github.com/Rene-63/SAP/blob/main/SAP_ALARMCENTRALE
 // @grant        none
 // ==/UserScript==
 
@@ -48,11 +48,11 @@ var runPage = false;
         return runPage;
     }
 
-    var versie = "2024.03.07";
+    var versie = "2024.10.08";
     if (!localStorage.SAP_Alarmcentrale_VERSION || JSON.parse(localStorage.SAP_Alarmcentrale_VERSION).Version !== versie) {
         var updates = "Spoed aanpassing i.v.m. niet meer functioneren";
 
-        alert(`SAP_MRJ - Versie ${versie} nieuwe update! \n\n Updates:\n${updates}`);
+        alert(`SAP_ALARMCENTRALE - Versie ${versie} nieuwe update! \n\n Updates:\n${updates}`);
 
         localStorage.setItem('SAP_Alarmcentrale_VERSION', JSON.stringify({ Version: versie }));
 
@@ -80,4 +80,105 @@ var runPage = false;
         fetch('/api/allianceinfo')
             .then(response => response.json())
             .then(data => {
-                if (data.id === 
+                if (data.id === 1163) {
+                    RunScript();
+                } else {
+                    alert("U zit niet in het juiste team om gebruik te maken van dit script. Zorg ervoor dat u lid bent van alliantie 1163.");
+                }
+            })
+            .catch(err => {
+                alert("Fout bij het ophalen van alliantiegegevens. Probeer het opnieuw. Foutmelding: " + err.message);
+            });
+    } else {
+        if (checkurl()) {
+            RunScript();
+        }
+    }
+})();
+
+        // HIER ZIJN DE MINIMALE WAARDEN EN TIJD TE WIJZIGEN
+function RunScript() {
+    let alliance_credits = 5000;
+    let ignore_min_credits_to_share = false;
+    let possible_to_share = false;
+    let minOpenTime = 3;
+
+    var requirements = localStorage.MKS_requirements === undefined ? {} : JSON.parse(localStorage.MKS_requirements);
+    let alliance_chat_setting = false;
+    let alliance_chat_credits_setting = false;
+    let alliance_chat_credits = 10000;
+
+    let planned_chat_setting = false;
+    let planned_alliance_chat_credits_setting = false;
+    let planned_alliance_chat_credits = 10000;
+
+    const getFillTime = () => {
+        let time = new Date();
+        let hours = time.getHours();
+        let mins = (time.getMinutes() < 10 ? '0' : '') + time.getMinutes();
+
+        if (hours >= 22 || hours < 7) {
+            return `10:00`;
+        } else {
+            let newHours = hours + minOpenTime;
+            if (newHours >= 24) {
+                newHours -= 24;
+            }
+            let formattedHours = newHours < 10 ? `0${newHours}` : newHours;
+            return `${formattedHours}:${mins}`;
+        }
+    };
+
+    const getSluitvoertuig = () => {
+        try {
+            const missionHelp = $('#mission_help');
+            const missionlink = missionHelp.attr('href');
+            if (missionHelp && missionlink) {
+                let missionID = $('#mission_help').attr('href').split("/").pop().replace(/\?.*/, '');
+                const overlay = new URLSearchParams($('#mission_help').attr('href').split("/").pop()).get('overlay_index');
+                if (overlay !== null) {
+                    missionID = `${missionID}-${overlay}`;
+                }
+
+                let mission = requirements[missionID];
+
+                if (mission.requirements.elw3 > 0 && typeof (mission.chances.elw3) == "undefined") {
+                    return "CO";
+                } else if (mission.requirements.mobile_command_vehicles > 0 && typeof (mission.chances.mobile_command_vehicles) == "undefined") {
+                    return "HOD";
+                } else if (mission.requirements.battalion_chief_vehicles > 0 && typeof (mission.chances.battalion_chief_vehicles) == "undefined") {
+                    return "OVD-B/HOD";
+                } else if (mission.requirements.spokesman > 0 && typeof (mission.chances.spokesman) == "undefined") {
+                    return "VL";
+                } else if (mission.requirements.police_helicopters > 0 && typeof (mission.chances.police_helicopters) == "undefined") {
+                    return "ZULU";
+                } else if (mission.requirements.hondengeleider > 0 && typeof (mission.chances.hondengeleider) == "undefined") {
+                    return "HGL/Hondengeleider";
+                } else if (mission.requirements.detention_unit > 0 && typeof (mission.chances.detention_unit) == "undefined") {
+                    return "ME-AE";
+                } else if (mission.requirements.at_c > 0 && typeof (mission.chances.at_c) == "undefined") {
+                    return "AT-C";
+                } else if (mission.requirements.lebefkw > 0 && typeof (mission.chances.lebefkw) == "undefined") {
+                    return "ME-C";
+                } else if (mission.requirements.mobile_air_vehicles > 0 && typeof (mission.chances.mobile_air_vehicles) == "undefined") {
+                    return "AB";
+                } else if (mission.requirements.boats > 0 && typeof (mission.chances.boats) == "undefined") {
+                    return "WOA/BA-RB";
+                } else if (mission.requirements.water_rescue > 0 && typeof (mission.chances.water_rescue) == "undefined") {
+                    return "Strandvoetuig/PM-OR";
+                } else {
+                    return "Onbekend, meld aan vrijgever";
+                }
+            }
+        } catch {
+            return "Geen data";
+        }
+    };
+
+    function getRequirements() {
+        try {
+            return new Promise(resolve => {
+                $.ajax({
+                    url: "/einsaetze.json",
+                    method: "GET",
+                    success: function (data,
