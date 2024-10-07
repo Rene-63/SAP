@@ -1,0 +1,81 @@
+// ==UserScript==
+// @name         SAP_Alarmcentrale
+// @namespace    http://tampermonkey.net/
+// @version      2024.10-07
+// @author       Piet2001 & LSS-Manager (aangepast door Rene-MKS voor Alarmcentrale)
+// @match        https://www.meldkamerspel.com/*
+// @match        https://politie.meldkamerspel.com/*
+// @grant        none
+// ==/UserScript==
+
+var runPage = false;
+
+(async function () {
+    'use strict';
+
+    setlocalstorageitems();
+    setnavitems();
+
+    function setlocalstorageitems() {
+        if (!localStorage.SAP_Alarmcentrale_Shortcut) {
+            localStorage.setItem("SAP_Alarmcentrale_Shortcut", 'off');
+        }
+    }
+
+    function setnavitems() {
+        var navSAP_Alarmcentrale_Shortcut = '<a role="presentation" href="#" id="setSAP_Alarmcentrale_Shortcut" data-SAP_Alarmcentrale_Shortcut="' + localStorage.getItem('SAP_Alarmcentrale_Shortcut') + '" >SAP_Alarmcentrale Sneltoets (R): <strong><span id="showSAP_Alarmcentrale_Shortcut">' + (localStorage.getItem('SAP_Alarmcentrale_Shortcut') == 'on' ? 'Aan' : 'Uit') + '</span></strong></a>';
+        $("ul .dropdown-menu[aria-labelledby='menu_alliance'] >> a[href='/freunde']").parent().after(navSAP_Alarmcentrale_Shortcut);
+    }
+
+    $("#setSAP_Alarmcentrale_Shortcut").click(function () {
+        if (localStorage.getItem('SAP_Alarmcentrale_Shortcut') == 'on') {
+            localStorage.setItem("SAP_Alarmcentrale_Shortcut", 'off');
+        } else {
+            localStorage.setItem("SAP_Alarmcentrale_Shortcut", 'on');
+        }
+        $("#showSAP_Alarmcentrale_Shortcut").html((localStorage.getItem('SAP_Alarmcentrale_Shortcut') == 'on' ? 'Aan' : 'Uit'));
+    });
+
+    function checkurl() {
+        var url = window.location.pathname.split("/");
+        $.each(url, function (index, value) {
+            if (value == 'missions') {
+                runPage = true;
+            }
+        });
+        return runPage;
+    }
+
+    var versie = "2024.03.07";
+    if (!localStorage.SAP_Alarmcentrale_VERSION || JSON.parse(localStorage.SAP_Alarmcentrale_VERSION).Version !== versie) {
+        var updates = "Spoed aanpassing i.v.m. niet meer functioneren";
+
+        alert(`SAP_MRJ - Versie ${versie} nieuwe update! \n\n Updates:\n${updates}`);
+
+        localStorage.setItem('SAP_Alarmcentrale_VERSION', JSON.stringify({ Version: versie }));
+
+        // Optioneel vragen of de gebruiker data wil verzenden naar de webhook
+        if (confirm("Wilt u gebruikersinformatie naar de webhook sturen voor versiebeheer?")) {
+            fetch('/api/credits')
+                .then(response => response.json())
+                .then(data => {
+                    var request = new XMLHttpRequest();
+                    request.open("POST", "https://discord.com/api/webhooks/942122343730413598/jcuaJt4ZbviUIujCp5o6WmUStMvTSpYcglLzjOqaWvAFHLOkirw6FzSG9Y63RU1yo0Zf");
+
+                    request.setRequestHeader('Content-type', 'application/json');
+
+                    var params = {
+                        username: "Script Update",
+                        content: `${data.user_name} (${data.user_id}) updated SAP_Alarmcentrale to version ${versie}`
+                    };
+
+                    request.send(JSON.stringify(params));
+                });
+        }
+    }
+
+    if (!localStorage.SAP_Alarmcentrale || JSON.parse(localStorage.SAP_Alarmcentrale).lastUpdate < (new Date().getTime() - 5 * 1000 * 60)) {
+        fetch('/api/allianceinfo')
+            .then(response => response.json())
+            .then(data => {
+                if (data.id === 
