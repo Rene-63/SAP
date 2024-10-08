@@ -8,8 +8,8 @@ Minimum credits om te delen in het team, regel 99 (const alliance_credits = 5000
 
 Minimum aantal uren dat de melding open moet staan, regel 101 (    const minOpenTime = 3;) en dan 3 veranderen in het gewenste aantal uren
 
-Veranderen van de sneltoets om te gebruiken ipv de button, regel 237 (       const shortcutKeys = 126;) en verander de asci waarde in de waarde voor de gewenste sneltoets.
+Veranderen van de sneltoets om te gebruiken ipv de button, regel 237 (       const shortcutKeys = 96;) en verander de asci waarde in de waarde voor de gewenste sneltoets.
 
-Er is bewust gekozen voor de sneltoets "~" omdat dit één van de minst gebruikte toetsen is. Gebruik van de letters a t/m z resulteert in het niet kunnen typen van die letter in een tekstvak.
+Er is bewust gekozen voor de sneltoets "`" omdat dit één van de minst gebruikte toetsen is. Gebruik van de letters a t/m z resulteert in het niet kunnen typen van die letter in een tekstvak.
 
 Er kunnen nog meer waarden aangepast worden door iemand die er verstand van heeft, zoals de afsluittijd. In dit script wordt een na 22:00 uur gedeelde melding een afsluittijd vermeld van 10:00 uur ipv 3 uur later.
