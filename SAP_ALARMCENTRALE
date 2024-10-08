@@ -53,7 +53,7 @@ let runPage = false;
     const versie = "2024.10.08";
     if (!localStorage.SAP_Alarmcentrale_VERSION || JSON.parse(localStorage.SAP_Alarmcentrale_VERSION).Version !== versie) {
         const updates = "Spoed aanpassing i.v.m. niet meer functioneren";
-        alert(`SAP_MRJ - Versie ${versie} nieuwe update! \n\n Updates:\n${updates}`);
+        alert(`SAP_ALARMCENTRALE - Versie ${versie} nieuwe update! \n\n Updates:\n${updates}`);
         localStorage.setItem('SAP_Alarmcentrale_VERSION', JSON.stringify({ Version: versie }));
 
         try {
