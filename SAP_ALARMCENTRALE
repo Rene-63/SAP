@@ -234,7 +234,7 @@ function runScript() {
             $('.alert_notify_alliance').click(AlliancePressed);
         };
 
-        const shortcutKeys = 126;
+        const shortcutKeys = 96;
         let test = true;
 
         $(document).keydown(e => {
