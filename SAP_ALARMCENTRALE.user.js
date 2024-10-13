@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         SAP_Alarmcentrale
 // @namespace    http://tampermonkey.net/
-// @version      2024.09.29
+// @version      2024.10.13
 // @author       Piet2001 & LSS-Manager (aangepast door Rene-MKS voor Alarmcentrale)
 // @match        https://www.meldkamerspel.com/*
 // @match        https://politie.meldkamerspel.com/*
@@ -48,7 +48,7 @@ var runPage = false;
         return runPage;
     }
 
-    var versie = "2024.03.07"
+    var versie = "2024.10.13"
     if (!localStorage.SAP_Alarmcentrale_VERSION || JSON.parse(localStorage.SAP_Alarmcentrale_VERSION).Version !== versie) {
 
         localStorage.setItem('SAP_Alarmcentrale_VERSION', JSON.stringify({ Version: versie }));
