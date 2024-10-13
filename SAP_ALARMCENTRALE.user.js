@@ -5,8 +5,8 @@
 // @author       Piet2001 & LSS-Manager (aangepast door Rene-MKS voor Alarmcentrale)
 // @match        https://www.meldkamerspel.com/*
 // @match        https://politie.meldkamerspel.com/*
-// @downloadURL  
-// @updateURL    
+// @downloadURL  https://github.com/Rene-63/SAP/blob/main/SAP_ALARMCENTRALE.user.js
+// @updateURL    https://github.com/Rene-63/SAP/blob/main/SAP_ALARMCENTRALE.user.js
 // @grant        none
 // ==/UserScript==
 
