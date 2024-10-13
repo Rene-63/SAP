@@ -5,6 +5,8 @@
 // @author       Piet2001 & LSS-Manager (aangepast door Rene-MKS voor Alarmcentrale)
 // @match        https://www.meldkamerspel.com/*
 // @match        https://politie.meldkamerspel.com/*
+// @downloadURL  
+// @updateURL    
 // @grant        none
 // ==/UserScript==
 
