@@ -25,7 +25,7 @@ var runPage = false;
     }
 
     function setnavitems() {
-        var navSAP_Alarmcentrale_Shortcut = '<a role="presentation" href="#" id="setSAP_Alarmcentrale_Shortcut" data-SAP_Alarmcentrale_Shortcut="' + localStorage.getItem('SAP_Alarmcentrale_Shortcut') + '" >SAP_Alarmcentrale Sneltoets (R): <strong><span id="showSAP_Alarmcentrale_Shortcut">' + (localStorage.getItem('SAP_Alarmcentrale_Shortcut') == 'on' ? 'Aan' : 'Uit') + '</span></strong></a>';
+        var navSAP_Alarmcentrale_Shortcut = '<a role="presentation" href="#" id="setSAP_Alarmcentrale_Shortcut" data-SAP_Alarmcentrale_Shortcut="' + localStorage.getItem('SAP_Alarmcentrale_Shortcut') + '" >SAP_Alarmcentrale Sneltoets (Z): <strong><span id="showSAP_Alarmcentrale_Shortcut">' + (localStorage.getItem('SAP_Alarmcentrale_Shortcut') == 'on' ? 'Aan' : 'Uit') + '</span></strong></a>';
         $("ul .dropdown-menu[aria-labelledby='menu_alliance'] >> a[href='/freunde']").parent().after(navSAP_Alarmcentrale_Shortcut);
     }
 
